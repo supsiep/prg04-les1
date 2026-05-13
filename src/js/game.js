@@ -1,6 +1,11 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode, Resource, randomInRange } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Fish } from './fish.js'
+import { Background } from './background.js'
+import { Shark } from './shark.js'
+import { Bubble } from './bubble.js'
+
 
 export class Game extends Engine {
 
@@ -16,30 +21,26 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(500, 300)
-        fish.vel = new Vector(-10,0)
-        fish.acc = new Vector(-10, 0)
-        fish.events.on("exitviewport", (e) => this.fishLeft(e))
-        this.add(fish)
 
-        const background = new Actor()
-        background.graphics.use(Resources.Background.toSprite())
-        background.pos = new Vector(640, 360)
-        background.z = -1
-        this.add(background)
-
-        
-        for (let i = 0; i < 100; i++) {
-            const shark = new Actor()
-            shark.graphics.use(Resources.Shark.toSprite())
-            shark.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
-            shark.vel = new Vector(randomInRange(-100, 100), randomInRange(-100, 100))
-            shark.events.on("exitviewport", (e) => this.fishLeft(e))
-            this.add(shark)
+        //make fishes
+        for (let i = 0; i < 10; i++) {
+            const myFish = new Fish()
+            this.add(myFish)
         }
 
+        //make background
+        const background = new Background()
+        this.add(background)
+
+        //make shark
+        const shark = new Shark()
+        this.add(shark)
+
+        for (let i = 0; i < 10; i++) {
+            const bubble = new Bubble()
+            this.add(bubble)
+        }
+        
     }
 
     fishLeft(e) {
