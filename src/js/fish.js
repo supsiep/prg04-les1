@@ -3,6 +3,10 @@ import { Resources, ResourceLoader } from './resources.js'
 
 export class Fish extends Actor {
 
+    constructor () {
+        super({width:Resources.Fish.width, height:Resources.Fish.height})
+    }
+
     onInitialize(engine) {
         this.graphics.use(Resources.Fish.toSprite())
         this.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
