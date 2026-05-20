@@ -6,6 +6,7 @@ import { Background } from './background.js'
 import { Shark } from './shark.js'
 import { Bubble } from './bubble.js'
 import { Score } from './score.js'
+import { StartScreen } from './startscreen.js'
 
 
 export class Game extends Engine {
@@ -22,41 +23,13 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-
-        //make fishes
-        for (let i = 0; i < 1000; i++) {
-            const myFish = new Fish()
-            this.add(myFish)
-        }
-
-        //make background
-        const background = new Background()
-        this.add(background)
-
-        //make bubble
-        for (let i = 0; i < 10; i++) {
-            const bubble = new Bubble()
-            this.add(bubble)
-        }
-
-        //make score
-        const scoreLabel = new Score();
-        this.add(scoreLabel)
-
-        //make shark
-        const shark = new Shark(scoreLabel)
-        this.add(shark)
-
-        this.currentScene.camera.strategy.lockToActor(shark)
-        this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 2000))
-
-        
-        
+        this.add('startScreen', new StartScreen())
+        this.goToScene('startScreen')
     }
 
-    fishLeft(e) {
-        e.target.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
-    }
+    // fishLeft(e) {
+    //     e.target.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
+    // }
 }
 
 new Game()

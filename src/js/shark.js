@@ -51,7 +51,12 @@ export class Shark extends Actor {
     hitSomething(e) {
         if (e.other.owner instanceof Fish) {
             e.other.owner.kill()
-            this.scoreLabel.addPoint();
+
+            if (e.other.owner.hasMine){
+                this.scoreLabel.removePoint();
+            } else {
+                this.scoreLabel.addPoint();
+            }
         }
     }
 }

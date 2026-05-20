@@ -1,7 +1,9 @@
 import { Actor, Engine, Vector, DisplayMode, Resource, randomInRange } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Mine } from "./mine.js"
 
 export class Fish extends Actor {
+    hasMine = false;
 
     constructor () {
         super({width:Resources.Fish.width, height:Resources.Fish.height})
@@ -15,6 +17,18 @@ export class Fish extends Actor {
             this.graphics.flipHorizontal = true
         }
         this.events.on("exitviewport", (e) => this.fishLeft(e))
+
+        
+
+        if (Math.random() < 0.1) {
+            const mine = new Mine
+            mine.anchor = new Vector(0.5, 0)
+            mine.scale = new Vector(0.5, 0.5)
+
+            this.addChild(mine)
+
+            this.hasMine = true
+        }
     }
 
     fishLeft(e) {

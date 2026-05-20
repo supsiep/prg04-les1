@@ -7,7 +7,7 @@ export class Score extends Label {
 
     onInitialize(engine) {
         this.text = "Score: 0"
-        this.Font = new Font({
+        this.font = new Font({
             family: 'Arial',
             size: 24,
             unit: FontUnit.Px, 
@@ -18,6 +18,11 @@ export class Score extends Label {
 
     addPoint() {
         this.score ++
+        this.text = `Score: ${this.score}`
+    }
+
+    removePoint() {
+        this.score --
         this.text = `Score: ${this.score}`
     }
 }
