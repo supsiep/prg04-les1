@@ -3,16 +3,19 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Fish } from "./fish.js"
 
 export class Shark extends Actor {
+    scoreLabel;
 
-    constructor () {
+    constructor (scoreLabel) {
         super({width:Resources.Shark.width, height:Resources.Shark.height})
+
+        this.scoreLabel = scoreLabel
     }
     
-
     onInitialize(engine) {
         this.graphics.use(Resources.Shark.toSprite())
         this.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
         this.events.on("exitviewport", (e) => this.sharkLeft(e))
+        this.on('collisionstart', (e) => this.hitSomething(e))
     }
 
     onPreUpdate (engine) {
@@ -21,12 +24,10 @@ export class Shark extends Actor {
 
         if (engine.input.keyboard.isHeld(Keys.Left)) {
             xSpeed = -500
-            // this.graphics.flipHorizontal = true
             this.rotation -= 0.05
         }
         if (engine.input.keyboard.isHeld(Keys.Right)) {
             xSpeed = 500
-            // this.graphics.flipHorizontal = false
             this.rotation += 0.05
         }
         if (engine.input.keyboard.isHeld(Keys.Up)) {
@@ -41,7 +42,6 @@ export class Shark extends Actor {
 
         this.vel = new Vector(xSpeed, ySpeed)
 
-        this.on('collisionstart', (e) => this.hitSomething(e))
     }
 
     sharkLeft(e) {
@@ -51,6 +51,7 @@ export class Shark extends Actor {
     hitSomething(e) {
         if (e.other.owner instanceof Fish) {
             e.other.owner.kill()
+            this.scoreLabel.addPoint();
         }
     }
 }

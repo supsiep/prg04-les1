@@ -5,6 +5,7 @@ import { Fish } from './fish.js'
 import { Background } from './background.js'
 import { Shark } from './shark.js'
 import { Bubble } from './bubble.js'
+import { Score } from './score.js'
 
 
 export class Game extends Engine {
@@ -23,12 +24,7 @@ export class Game extends Engine {
         console.log("start de game!")
 
         //make fishes
-        for (let i = 0; i < 10; i++) {
-            const myFish = new Fish()
-            this.add(myFish)
-        }
-
-        if (Math.random < 0.1) {
+        for (let i = 0; i < 1000; i++) {
             const myFish = new Fish()
             this.add(myFish)
         }
@@ -37,18 +33,22 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
-        //make shark
-        const shark = new Shark()
-        this.add(shark)
-
-        this.currentScene.camera.strategy.lockToActor(shark)
-        this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 2000))
-
         //make bubble
         for (let i = 0; i < 10; i++) {
             const bubble = new Bubble()
             this.add(bubble)
         }
+
+        //make score
+        const scoreLabel = new Score();
+        this.add(scoreLabel)
+
+        //make shark
+        const shark = new Shark(scoreLabel)
+        this.add(shark)
+
+        this.currentScene.camera.strategy.lockToActor(shark)
+        this.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 2000))
 
         
         
